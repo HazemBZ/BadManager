@@ -19,7 +19,7 @@ public class UserService {
 	}
 	
 	public User getUserByName(String name) {
-		return userRepo.findUserByName(name).orElse(null);
+		return userRepo.findUserByName(name).orElse(null);//comment
 	}
 	
 	public List<User> getUsers(){
