@@ -1,5 +1,7 @@
 package com.esprit.badmanager.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,15 @@ public class TeamService {
 	@Autowired
 	private TeamRepository teamRepo;
 	
-	public Team getGroupById(long id) {
+	public Team getTeamById(long id) {
 		return teamRepo.findById(id).orElse(null);
 	}
 	
-	public Team getGroupByName(String name) {
+	public Team getTeamByName(String name) {
 		return teamRepo.findByName(name).orElse(null);
+	}
+	
+	public List<Team> getTeams(){
+		return (List<Team>)teamRepo.findAll();
 	}
 }

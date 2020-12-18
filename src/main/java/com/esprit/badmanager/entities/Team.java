@@ -25,7 +25,8 @@ public class Team {
 			name="team_join",
 			joinColumns= @JoinColumn(name="team_id"),
 			inverseJoinColumns= @JoinColumn(name="users_id"))
-	@JsonBackReference
+	@JsonBackReference // does not try to serialize members attribute
+//	@JsonManagedReference
 	private List<User> members = new ArrayList<User>();
 	@ManyToMany()
 	@JoinTable(

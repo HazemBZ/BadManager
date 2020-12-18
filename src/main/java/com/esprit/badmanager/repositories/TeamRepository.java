@@ -12,4 +12,5 @@ public interface TeamRepository extends CrudRepository<Team, Long>{
 
 	@Query("SELECT t FROM Team t where t.name = :name")
 	Optional<Team> findByName(@Param("name")String name);
+	
 }

@@ -15,7 +15,7 @@ public class Subject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String name, title;
+	private String name, title; // NAME: simple name, TITLE: name + class
 	
 //	@ManyToMany
 //	private List<User> subscribedMembers = new ArrayList<User>();

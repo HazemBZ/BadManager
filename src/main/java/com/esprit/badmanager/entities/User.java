@@ -1,6 +1,5 @@
 package com.esprit.badmanager.entities;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -14,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="users")
-public class User implements Serializable{
+public class User{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

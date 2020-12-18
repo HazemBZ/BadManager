@@ -1,5 +1,7 @@
 package com.esprit.badmanager.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,10 @@ public class SubjectService {
 	
 	@Autowired
 	private SubjectRepository subjectRepo;
+	
+	public List<Subject> getSubjects(){
+		return (List<Subject>)subjectRepo.findAll();
+	}
 	
 	public Subject getById(long id) {
 		return subjectRepo.findById(id).orElse(null);
