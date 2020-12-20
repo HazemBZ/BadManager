@@ -22,7 +22,7 @@ public class Team {
 	private String name ;
 	@ManyToMany
 	@JoinTable(
-			name="team_join",
+			name="team_membership",
 			joinColumns= @JoinColumn(name="team_id"),
 			inverseJoinColumns= @JoinColumn(name="users_id"))
 	@JsonBackReference // does not try to serialize members attribute
@@ -34,6 +34,14 @@ public class Team {
 			joinColumns= @JoinColumn(name="team_id"),
 			inverseJoinColumns= @JoinColumn(name="subject_id"))
 	private List<Subject> subjectSubscriptions = new ArrayList<Subject>();
+	
+	@ManyToMany
+	@JoinTable(
+			name="task_submissions",
+			joinColumns= @JoinColumn(name="task_id"),
+			inverseJoinColumns = @JoinColumn(name="team_id"))
+	@JsonBackReference
+	private List<Task> taskSubmissions = new ArrayList<Task>();
 	
 	public Team() {
 		super();
@@ -61,6 +69,19 @@ public class Team {
 	}
 	
 	
+	
+	public List<Subject> getSubjectSubscriptions() {
+		return subjectSubscriptions;
+	}
+	public void setSubjectSubscriptions(List<Subject> subjectSubscriptions) {
+		this.subjectSubscriptions = subjectSubscriptions;
+	}
+	public List<Task> getTaskSubmissions() {
+		return taskSubmissions;
+	}
+	public void setTaskSubmissions(List<Task> taskSubmissions) {
+		this.taskSubmissions = taskSubmissions;
+	}
 	@Override
 	public String toString() {
 		return "Group{id="+this.id+" ,name="+this.name+" ,members"+User.toString(this.members);

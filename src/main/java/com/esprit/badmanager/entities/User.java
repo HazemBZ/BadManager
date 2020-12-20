@@ -21,7 +21,7 @@ public class User{
 	private String name;
 	private String email;
 	@ManyToMany
-	@JsonManagedReference
+//	@JsonManagedReference
 	private List<Team> joinedTeams;
 	
 	public User() {
@@ -53,6 +53,26 @@ public class User{
 		this.joinedTeams = teams;
 	}
 	
+	
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public List<Team> getJoinedTeams() {
+		return joinedTeams;
+	}
+	public void setJoinedTeams(List<Team> joinedTeams) {
+		this.joinedTeams = joinedTeams;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public static String toString(List<User> users) {
 		String base ="\n";
 		for (User user : users) {
