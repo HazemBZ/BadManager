@@ -25,4 +25,13 @@ public class TeamService {
 	public List<Team> getTeams(){
 		return (List<Team>)teamRepo.findAll();
 	}
+	
+	public void saveOrUpdate(Team team) {
+		teamRepo.save(team);
+	}
+	
+	public void deleteById(long id) {
+		teamRepo.deleteById(id);
+	}
+	
 }
