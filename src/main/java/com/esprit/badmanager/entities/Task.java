@@ -18,6 +18,7 @@ public class Task {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String name, description;
+	private float duration; 
 	@ManyToOne()
 	private Subject subject;
 	
@@ -60,6 +61,16 @@ public class Task {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	
+
+	public float getDuration() {
+		return duration;
+	}
+
+	public void setDuration(float duration) {
+		this.duration = duration;
 	}
 
 	public Subject getSubject() {
