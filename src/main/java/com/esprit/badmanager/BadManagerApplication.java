@@ -19,6 +19,7 @@ import com.esprit.badmanager.repositories.SubjectRepository;
 import com.esprit.badmanager.repositories.TaskRepository;
 import com.esprit.badmanager.repositories.TeamRepository;
 import com.esprit.badmanager.repositories.UserRepository;
+import com.esprit.badmanager.services.EmailService;
 
 //@EnableEurekaClient
 @SpringBootApplication
@@ -34,9 +35,12 @@ public class BadManagerApplication {
 			TeamRepository groupRepo,
 			SubjectRepository subjectRepo,
 			TaskRepository taskRepo,
-			ClassroomRepository classRepo
+			ClassroomRepository classRepo,
+			EmailService emService
 			) {
 		return args -> {
+			System.out.println("APP PASS =>" + System.getenv("GMAIL_APP_PASS"));
+//			emService.sendEmail();
 			//Subjects part
 			Stream.of("WSN", "Systems and Processing", "CellularNetworks").forEach(sub -> {
 				Subject s  = new Subject(sub, sub+"-4IoSys");// random generated ids (do not start from 1)
