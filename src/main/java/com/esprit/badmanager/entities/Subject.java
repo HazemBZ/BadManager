@@ -9,18 +9,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Subject {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name, title; // NAME: simple name, TITLE: name + class
+	private long tutor_id ;
 	
 //	@ManyToMany
 //	private List<User> subscribedMembers = new ArrayList<User>();
 	@ManyToMany
-	private List<Team> subscribedTeams ; 
+	private List<Team> subscribedTeams = new ArrayList<Team>();
+	
+//	@OneToMany(fetch=FetchType.LAZY, mappedBy="subject")
+//	private List<Task> tasks = new ArrayList<Task>();
 	
 	public Subject() {
 		super();
@@ -36,6 +44,20 @@ public class Subject {
 		this.title = title;
 //		this.subscribedMembers = members;
 	}
+	
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public long getTutor_id() {
+		return tutor_id;
+	}
+	public void setTutor_id(long tutor_id) {
+		this.tutor_id = tutor_id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -48,7 +70,15 @@ public class Subject {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-//	public List<User> getMembers() {
+	
+	
+	public long getTutor() {
+		return tutor_id;
+	}
+	public void setTutor(long tutor) {
+		this.tutor_id = tutor;
+	}
+	//	public List<User> getMembers() {
 //		return subscribedMembers;
 //	}
 //	public void setMembers(List<User> members) {
@@ -60,8 +90,22 @@ public class Subject {
 	public void setSubscribedGroups(List<Team> subscribedGroups) {
 		this.subscribedTeams = subscribedGroups;
 	}
-	
-	
-	
+	public List<Team> getSubscribedTeams() {
+		return subscribedTeams;
+	}
+	public void setSubscribedTeams(List<Team> subscribedTeams) {
+		this.subscribedTeams = subscribedTeams;
+	}
+//	public List<Task> getTasks() {
+//		return tasks;
+//	}
+//	public void setTasks(List<Task> tasks) {
+//		this.tasks = tasks;
+//	}
+//	
+//	public void addTask(Task t) {
+//		this.tasks.add(t);
+//	}
+//	
 	
 }

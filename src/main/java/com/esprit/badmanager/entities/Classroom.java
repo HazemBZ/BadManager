@@ -1,28 +1,38 @@
 package com.esprit.badmanager.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Classroom {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String name;
-	private User[] members;
-	private Subject[] subjects;
+	@ManyToMany
+	
+	private List<User> members = new ArrayList<User>();
+//	private List<Subject> subjects;
 	public Classroom() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Classroom(String name, User[] members, Subject[] subjects) {
+	public Classroom(String name, List<User> members, List<Subject> subjects) {
 		super();
 		this.name = name;
 		this.members = members;
-		this.subjects = subjects;
+//		this.subjects = subjects;
 	}
 	public long getId() {
 		return id;
@@ -36,18 +46,32 @@ public class Classroom {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public User[] getMembers() {
+	
+	
+	
+	public List<User> getMembers() {
 		return members;
 	}
-	public void setMembers(User[] members) {
+	public void setMembers(List<User> members) {
 		this.members = members;
 	}
-	public Subject[] getSubjects() {
-		return subjects;
+	
+	// Not Prod ready !!
+	public void addMember(User user) {
+		this.members.add(user);
 	}
-	public void setSubjects(Subject[] subjects) {
-		this.subjects = subjects;
+	
+	// Not Prod ready !!
+	public User removeMember(int index) {
+		return this.members.remove(index);
 	}
+	
+//	public List<Subject> getSubjects() {
+//		return subjects;
+//	}
+//	public void setSubjects(List<Subject> subjects) {
+//		this.subjects = subjects;
+//	}
 	
 	
 	

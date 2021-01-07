@@ -10,31 +10,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esprit.badmanager.entities.Classroom;
 import com.esprit.badmanager.services.ClassroomService;
 
 @RestController
-@RequestMapping("/class")
+@RequestMapping("/classroom")
 public class ClassroomController {
 
 	@Autowired
 	private ClassroomService classroomService;
 	
 	@GetMapping("/all")
-	public List<Classroom> getClasses(){
-		return classroomService.getClasses();
+	public List<Classroom> getClassroomes(){
+		return classroomService.getAllClassrooms();
 	}
 	
-	@GetMapping("/id/{id}")
-	public Classroom getClassById(@PathVariable("id")Long id) {
-		return classroomService.getClassById(id);
+	@GetMapping("/id")
+	public Classroom getClassroomById(@RequestParam("id")long id) {
+		return classroomService.getClassroomById(id);
 	}
 	
-	@GetMapping("/name/{name}")
-	public Classroom getClassByName(@PathVariable("name")String name) {
-		return classroomService.getClassByName(name);
+	@GetMapping("/name")
+	public Classroom getClassroomByName(@RequestParam("name")String name) {
+		return classroomService.getClassroomByName(name);
 	}
 	
 	@PostMapping("/")
@@ -48,7 +49,7 @@ public class ClassroomController {
 	}
 	
 	@DeleteMapping("/id/{id}")
-	public void deleteById(@PathVariable("id")Long id) {
+	public void deleteById(@PathVariable("id")long id) {
 		classroomService.deleteById(id);
 	}
 	

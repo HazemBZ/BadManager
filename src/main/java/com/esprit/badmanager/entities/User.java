@@ -1,5 +1,6 @@
 package com.esprit.badmanager.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,10 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="users")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User{
 	
 	@Id
@@ -20,18 +23,42 @@ public class User{
 	private long id;
 	private String name;
 	private String email;
+	private String type;
 	@ManyToMany
-//	@JsonManagedReference
+//	@JsonManagedReference(value="membership")
 	private List<Team> joinedTeams;
+	@ManyToMany
+	private List<Classroom> classrooms = new ArrayList<Classroom>(); 
 	
 	public User() {
 		super();
 	}
-	public User(String name, String email) {
+	public User(String name, String email, String type) {
 		super();
 		this.name = name;
 		this.email = email;
+		this.type = type;
 	}
+	
+	
+	
+	
+	public List<Classroom> getClassrooms() {
+		return classrooms;
+	}
+	public void setClassrooms(List<Classroom> classrooms) {
+		this.classrooms = classrooms;
+	}
+	
+	// Not production ready !!
+	public Classroom getClassroom(int id) {
+		return this.classrooms.get(id);
+	}
+	// Not production ready !!
+	public void addClassroom(Classroom clr) {
+		this.addClassroom(clr);
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -72,6 +99,13 @@ public class User{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public static String toString(List<User> users) {
 		String base ="\n";

@@ -12,8 +12,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Team {
 
 	@Id
@@ -25,7 +28,7 @@ public class Team {
 			name="team_membership",
 			joinColumns= @JoinColumn(name="team_id"),
 			inverseJoinColumns= @JoinColumn(name="users_id"))
-	@JsonBackReference // does not try to serialize members attribute
+	@JsonBackReference(value="membership") // does not try to serialize members attribute
 //	@JsonManagedReference
 	private List<User> members = new ArrayList<User>();
 	@ManyToMany()
@@ -40,7 +43,7 @@ public class Team {
 			name="task_submissions",
 			joinColumns= @JoinColumn(name="task_id"),
 			inverseJoinColumns = @JoinColumn(name="team_id"))
-	@JsonBackReference
+	@JsonBackReference(value="task_submissions")
 	private List<Task> taskSubmissions = new ArrayList<Task>();
 	
 	public Team() {
@@ -54,6 +57,14 @@ public class Team {
 		super();
 		this.name = name;
 		this.members = members;
+	}
+	
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;

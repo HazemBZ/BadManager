@@ -6,24 +6,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Task {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String name, description;
-	private float duration; 
-	@ManyToOne()
-	private Subject subject;
+	private float duration;
+//	@ManyToOne(fetch=FetchType.EAGER, targetEntity=Subject.class)
+//	@JsonManagedReference
+	@JoinColumn(name="subject_id", referencedColumnName="id")
+	private long subject_id;
 	
 	@ManyToMany
-	@JsonManagedReference
+//	@JsonManagedReference(value="task_submissions")
 	private List<Team> teams;
 
 	public Task() {
@@ -31,11 +35,20 @@ public class Task {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Task(String name, String description, Subject subject, List<Team> teams) {
+	
+	
+	public Task(String name, String description, long subject) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.subject = subject;
+		this.subject_id = subject;
+	}
+	
+	public Task(String name, String description, long subject, List<Team> teams) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.subject_id = subject;
 		this.teams = teams;
 	}
 
@@ -73,12 +86,12 @@ public class Task {
 		this.duration = duration;
 	}
 
-	public Subject getSubject() {
-		return subject;
+	public long getSubject() {
+		return subject_id;
 	}
 
-	public void setSubject(Subject subject) {
-		this.subject = subject;
+	public void setSubject(long subject) {
+		this.subject_id = subject;
 	}
 
 	public List<Team> getTeams() {

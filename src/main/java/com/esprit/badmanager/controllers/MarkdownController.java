@@ -25,9 +25,9 @@ public class MarkdownController {
 	}
 	
 	@PostMapping("/parse")
-	public String postMarkdownParse(@RequestBody Markdown markdown) {
+	public Markdown postMarkdownParse(@RequestBody Markdown markdown) {
 		System.out.println("HIT  POST PARSE");
-		return markdownService.parseMarkdown(markdown.getData());
+		return new Markdown(markdownService.parseMarkdown(markdown.getData()));
 	}
 	
 }

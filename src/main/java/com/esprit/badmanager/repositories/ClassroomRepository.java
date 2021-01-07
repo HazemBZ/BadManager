@@ -12,4 +12,8 @@ public interface ClassroomRepository extends CrudRepository<Classroom,Long>{
 
 	@Query("SELECT c from Classroom c where c.name = :name")
 	Optional<Classroom> findClassByName(@Param("name")String name);
+	// classroom members by classroom_name
+//	@Query("SELECT u FROM Classroom c, User u, ")
+	
+	// classroom members by classromm_id
 }

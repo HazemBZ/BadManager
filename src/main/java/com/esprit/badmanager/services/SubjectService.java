@@ -29,4 +29,8 @@ public class SubjectService {
 	public Subject getByTitle(String title) {
 		return subjectRepo.findSubjectByTitle(title).orElse(null);
 	}
+	
+	public List<Subject> getSubjectsJoinUsers(){
+		return subjectRepo.findSubjectsJoinUsers().orElse(null);
+	}
 }

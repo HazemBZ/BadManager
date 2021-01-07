@@ -5,15 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esprit.badmanager.entities.Task;
 import com.esprit.badmanager.services.TaskService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/task")
@@ -22,35 +24,52 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;	
 	
+	@PostMapping
+	public Task createTask(@RequestBody Task task) {
+		System.out.println("hit POST task/ req");
+		taskService.saveOrUpdate(task);	
+		return taskService.getTaskById(task.getId());
+	}
+	
+	@PutMapping
+	public Task updateTask(@RequestBody Task task) {
+		System.out.println("hit PUT task/ req");
+		System.out.println("Trying to save Task:");
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			System.out.println(mapper.writeValueAsString(task));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return taskService.saveOrUpdate(task);
+//		 taskService.getTaskById(task.getId());
+	}
+	
 	@GetMapping("/all")
 	public List<Task> getTasks(){
 		return taskService.getTasks();
 	}
 	
-	@GetMapping("/id/{id}")
-	public Task getClassById(@PathVariable("id")Long id) {
+	@GetMapping("/id")
+	public Task getTaskById(@RequestParam("id")Long id) {
 		return taskService.getTaskById(id);
 	}
 	
-	@GetMapping("/name/{name}")
-	public Task getClassByName(@PathVariable("name")String name) {
+	@GetMapping("/name")
+	public Task getTaskByName(@RequestParam("name")String name) {
 		return taskService.getTaskByName(name);
 	}
 	
-	@PostMapping("/")
-	public Task createTask(@RequestBody Task task) {
-		 taskService.saveOrUpdate(task);
-		 return taskService.getTaskById(task.getId());
+	@GetMapping("/subjectId")
+	public List<Task> getTaskBySubjectID(@RequestParam("id")Long id) {
+		return taskService.getTasksBySubjectId(id);
 	}
 	
-	@PutMapping("/")
-	public Task updateTask(@RequestBody Task task) {
-		taskService.saveOrUpdate(task);
-		return taskService.getTaskById(task.getId());
-	}
 	
-	@DeleteMapping("/id/{id}")
-	public void deleteTaskById(@PathVariable("id")long id) {
+	
+	@DeleteMapping("/id")
+	public void deleteTaskById(@RequestParam("id")long id) {
 		taskService.deleteById(id);
 	}
 	

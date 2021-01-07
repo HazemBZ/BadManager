@@ -15,15 +15,15 @@ public class ClassroomService {
 	@Autowired
 	private ClassroomRepository classRepo;
 	
-	public List<Classroom> getClasses(){
+	public List<Classroom> getAllClassrooms(){
 		return 	(List<Classroom>)classRepo.findAll();
 	}
 	
-	public Classroom getClassById(long id) {
+	public Classroom getClassroomById(long id) {
 		return classRepo.findById(id).orElse(null);
 	}
 	
-	public Classroom  getClassByName(String name) {
+	public Classroom  getClassroomByName(String name) {
 		return classRepo.findClassByName(name).orElse(null);
 	}
 	
