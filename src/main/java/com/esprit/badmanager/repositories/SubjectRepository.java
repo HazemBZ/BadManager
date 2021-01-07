@@ -17,6 +17,6 @@ public interface SubjectRepository extends CrudRepository<Subject, Long>{
 	@Query("SELECT s FROM Subject s where s.title = :title")
 	Optional<Subject> findSubjectByTitle(@Param("title")String title);
 	
-	@Query("SELECT s.id as subject_id, s.title as subject_title, u.id as user_id, u.name as user_name, u.email as user_email FROM Subject s LEFT JOIN User u ON s.tutor_id = u.id")
+	@Query("SELECT s.id as subject_id, s.title as subject_title, u.id as user_id, u.name as user_name, u.email as user_email, s.classroom FROM Subject s LEFT JOIN User u ON s.tutor_id = u.id")
 	Optional<List<Subject>> findSubjectsJoinUsers();
 }

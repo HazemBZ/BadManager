@@ -22,6 +22,7 @@ import com.esprit.badmanager.repositories.TaskRepository;
 import com.esprit.badmanager.repositories.TeamRepository;
 import com.esprit.badmanager.repositories.UserRepository;
 import com.esprit.badmanager.services.EmailService;
+import com.esprit.badmanager.utilities.SessionMan;
 
 //@EnableEurekaClient
 @SpringBootApplication
@@ -46,20 +47,35 @@ public class BadManagerApplication {
 //			emService.sendEmail();
 			
 			// TASKS 
-			Task task = new Task();
-			task.setDescription("Do stuff at the set amount of time");
-			task.setDuration(12.2f);
-			task.setName("Small Task");
-			Task saved_task= taskRepo.save(task);
+//			Task task = new Task();
+//			task.setDescription("Do stuff at the set amount of time");
+//			task.setDuration(12.2f);
+//			task.setName("Small Task");
+//			Task saved_task= taskRepo.save(task);
+			// CLASSROOM
+			
+			// --------------------> CLASSROOM <------------------------------- 
+						List<User> classroom_members = new ArrayList<User>();
+						User tutor = new User("walid", "walid@domain.tn","TUTOR");
+						User u2 = new User("hazem","hazembenbz@gmail.com","STUDENT");
+//						classroom_members.addAll(teamMembers);
+						classroom_members.add(tutor);
+						classroom_members = (List<User>)userRepo.saveAll(Arrays.asList(tutor,u2)); 
+						Classroom iosysClass = new Classroom();
+						iosysClass.setName("4ioSys");
+						iosysClass.setMembers(classroom_members);
+						classRepo.save(iosysClass);
+						
 			//Subjects part0
+			
 			List<Subject> subjects = new ArrayList();
 			Stream.of("WSN", "Systems and Processing", "CellularNetworks").forEach(sub -> {
 				Subject s  = new Subject(sub, sub+"-4IoSys");// random generated ids (do not start from 1)
 				User tut = new User("Peter", "peter@domain.bla","TUTOR");
-				
+				s.setClassroom(iosysClass);
 				s.setTutor(userRepo.save(tut).getId());
 //				s.set
-				subjectRepo.save(s);
+				subjects.add(subjectRepo.save(s));
 				System.out.println(s+" saved");
 			});
 			Subject ssub = subjectRepo.findSubjectByName("WSN").orElse(null);
@@ -67,12 +83,12 @@ public class BadManagerApplication {
 			System.out.println(ssub);
 			Task ttask = taskRepo.findById(2l).orElse(null);
 			
-			if (ssub != null && ttask != null) {
-				System.out.println("FOUND AND SAVING TASK TO SUVJECT");
-				task.setSubject(ssub.getId());
-//				ssub.addTask(task);
-				taskRepo.save(ttask);
-			}
+//			if (ssub != null && ttask != null) {
+//				System.out.println("FOUND AND SAVING TASK TO SUVJECT");
+//				task.setSubject(ssub.getId());
+////				ssub.addTask(task);
+//				taskRepo.save(ttask);
+//			}
 			System.out.println("FAILED TASK TO SUBJECT");
 			
 			//Team
@@ -96,15 +112,9 @@ public class BadManagerApplication {
 			Task t1 = new Task("Drink coffee","You have to buy and drink a cup of coffee",subjectRepo.findSubjectByName("WSN").orElse(null).getId(), Arrays.asList(t,t));
 			taskRepo.save(t1);
 			
-			// CLASSROOM 
-			List<User> classroom_members = new ArrayList<User>();
-			User tutor = new User("walid", "walid@domain.tn","TUTOR");
 			
-			classroom_members.addAll(teamMembers);
-			classroom_members.add(tutor);
-			userRepo.save(tutor);
-			Classroom iosysClass = new Classroom("4ioSys", classroom_members, subjects);
-			classRepo.save(iosysClass);
+			User connectionTester = new User("hazem","hazembenbz@gmail.com","STUDENT");
+			SessionMan.connect(connectionTester);
 		};
 	}
 

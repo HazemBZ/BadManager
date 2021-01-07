@@ -48,8 +48,8 @@ public class ClassroomController {
 		classroomService.saveOrUpdate(classroom);
 	}
 	
-	@DeleteMapping("/id/{id}")
-	public void deleteById(@PathVariable("id")long id) {
+	@DeleteMapping("/id")
+	public void deleteById(@RequestParam("id")long id) {
 		classroomService.deleteById(id);
 	}
 	

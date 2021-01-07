@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -21,9 +22,11 @@ public class Classroom {
 	private long id;
 	private String name;
 	@ManyToMany
-	
 	private List<User> members = new ArrayList<User>();
-//	private List<Subject> subjects;
+	
+	@OneToMany
+	private List<Subject> subjects = new ArrayList<Subject>();
+	
 	public Classroom() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -32,7 +35,7 @@ public class Classroom {
 		super();
 		this.name = name;
 		this.members = members;
-//		this.subjects = subjects;
+		this.subjects = subjects;
 	}
 	public long getId() {
 		return id;
@@ -66,14 +69,16 @@ public class Classroom {
 		return this.members.remove(index);
 	}
 	
-//	public List<Subject> getSubjects() {
-//		return subjects;
-//	}
-//	public void setSubjects(List<Subject> subjects) {
-//		this.subjects = subjects;
-//	}
+	public List<Subject> getSubjects() {
+		return subjects;
+	}
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
+	}
 	
-	
+	public void addSubject(Subject s) {
+		subjects.add(s);
+	}
 	
 	
 }

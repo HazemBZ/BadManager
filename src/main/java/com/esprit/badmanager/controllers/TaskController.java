@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esprit.badmanager.entities.Task;
+import com.esprit.badmanager.services.EmailService;
 import com.esprit.badmanager.services.TaskService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,13 +23,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class TaskController {
 
 	@Autowired
-	private TaskService taskService;	
+	private TaskService taskService;
+	@Autowired
+	private EmailService emailService;
 	
 	@PostMapping
 	public Task createTask(@RequestBody Task task) {
 		System.out.println("hit POST task/ req");
-		taskService.saveOrUpdate(task);	
-		return taskService.getTaskById(task.getId());
+		return taskService.saveOrUpdate(task);	
+		// Send emails here 
+		// Need session management to keep track of sender
+		
 	}
 	
 	@PutMapping

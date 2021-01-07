@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -27,8 +29,11 @@ public class Subject {
 	@ManyToMany
 	private List<Team> subscribedTeams = new ArrayList<Team>();
 	
-//	@OneToMany(fetch=FetchType.LAZY, mappedBy="subject")
-//	private List<Task> tasks = new ArrayList<Task>();
+	@OneToMany//(fetch=FetchType.LAZY, mappedBy="subject")
+	private List<Task> tasks = new ArrayList<Task>();
+	
+	@ManyToOne
+	private Classroom classroom;
 	
 	public Subject() {
 		super();
@@ -51,6 +56,20 @@ public class Subject {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	
+	public List<Task> getTasks() {
+		return tasks;
+	}
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+	public Classroom getClassroom() {
+		return classroom;
+	}
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
 	}
 	public long getTutor_id() {
 		return tutor_id;

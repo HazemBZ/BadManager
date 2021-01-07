@@ -33,7 +33,7 @@ public class SubjectController {
 
 	@GetMapping("/id")
 	public Subject getSubjectById(@RequestParam(name="id", required=false, defaultValue="1")long id) {
-		System.out.println("ROUTE /subject/id/{id}  => name: "+id);
+		System.out.println("ROUTE /subject/id?id="+id);
 		return subjectService.getById(id);
 	}
 	
