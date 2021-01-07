@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esprit.badmanager.entities.Task;
-import com.esprit.badmanager.services.EmailService;
 import com.esprit.badmanager.services.TaskService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/task")
@@ -24,8 +21,6 @@ public class TaskController {
 
 	@Autowired
 	private TaskService taskService;
-	@Autowired
-	private EmailService emailService;
 	
 	@PostMapping
 	public Task createTask(@RequestBody Task task) {

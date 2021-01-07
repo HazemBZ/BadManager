@@ -21,7 +21,6 @@ import com.esprit.badmanager.repositories.SubjectRepository;
 import com.esprit.badmanager.repositories.TaskRepository;
 import com.esprit.badmanager.repositories.TeamRepository;
 import com.esprit.badmanager.repositories.UserRepository;
-import com.esprit.badmanager.services.EmailService;
 import com.esprit.badmanager.utilities.SessionMan;
 
 //@EnableEurekaClient
@@ -39,8 +38,7 @@ public class BadManagerApplication {
 			TeamRepository groupRepo,
 			SubjectRepository subjectRepo,
 			TaskRepository taskRepo,
-			ClassroomRepository classRepo,
-			EmailService emService
+			ClassroomRepository classRepo
 			) {
 		return args -> {
 			System.out.println("APP PASS =>" + System.getenv("GMAIL_APP_PASS"));
