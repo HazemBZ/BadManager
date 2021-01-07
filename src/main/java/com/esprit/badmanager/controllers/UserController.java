@@ -43,8 +43,9 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/id")
-	public void deleteuserById(@RequestParam("id")long id) {
-		userService.deleteById(id);
+	public String deleteuserById(@RequestParam("id")long id) {
+		  userService.deleteById(id);
+		  return "DELETED";
 	}
 	
 	@DeleteMapping("/")

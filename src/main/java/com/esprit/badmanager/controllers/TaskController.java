@@ -40,13 +40,13 @@ public class TaskController {
 	public Task updateTask(@RequestBody Task task) {
 		System.out.println("hit PUT task/ req");
 		System.out.println("Trying to save Task:");
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			System.out.println(mapper.writeValueAsString(task));
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			System.out.println(mapper.writeValueAsString(task));
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return taskService.saveOrUpdate(task);
 //		 taskService.getTaskById(task.getId());
 	}
