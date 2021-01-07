@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esprit.badmanager.entities.Team;
@@ -26,13 +27,13 @@ public class TeamController {
 		return teamService.getTeams();
 	}
 	
-	@GetMapping("/name/{name}")
-	public Team getTeamByName(@PathVariable("name")String name) {
+	@GetMapping("/name")
+	public Team getTeamByName(@RequestParam("name")String name) {
 		return teamService.getTeamByName(name);
 	}
 	
-	@GetMapping("/id/{id}")
-	public Team getTeamById(@PathVariable("id")long id) {
+	@GetMapping("/id")
+	public Team getTeamById(@RequestParam("id")long id) {
 		return teamService.getTeamById(id);
 	}
 	
@@ -41,8 +42,8 @@ public class TeamController {
 		teamService.saveOrUpdate(team);
 	}
 	
-	@DeleteMapping("/id/{id}")
-	public void deleteTeamById(@PathVariable("id")long id) {
+	@DeleteMapping("/id")
+	public void deleteTeamById(@RequestParam("id")long id) {
 		teamService.deleteById(id);
 	}
 }
